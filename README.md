@@ -1,2 +1,8 @@
-# DOSW_Lab7_SPAJT
-Laboratorio 7 de DOSW - Cubrimiento de pruebas. 
+# Laboratorio 6
+
+- Ssmuel Felipe Castelblanco Tellez
+- Tomas Olaya Diaz
+- Angela Gomez Valencia
+- Paula Lozano Castaneda
+- Juan Diego Patino Munoz
+
