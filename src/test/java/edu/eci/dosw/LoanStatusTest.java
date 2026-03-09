@@ -1,4 +1,4 @@
-package edu.eci.dosw;
+package test.java.edu.eci.dosw;
 
 public class LoanStatusTest {
     

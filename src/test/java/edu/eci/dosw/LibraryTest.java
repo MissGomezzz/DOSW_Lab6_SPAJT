@@ -1,4 +1,4 @@
-package edu.eci.dosw;
+package test.java.edu.eci.dosw;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class LibraryTest {
     
@@ -67,6 +68,16 @@ public class LibraryTest {
         // User is valid
         assertEquals(user, loan.getUser());
         assertEquals(LoanStatus.ACTIVE, loan.getStatus());
+    }
+
+     @Test
+    void returnLoanShouldPassCurrentDateCorrectStatusAndExistence() {
+        Loan returnedLoan = library.returnLoan("1", "0987654321");
+        
+        assertNotNull(returnedLoan);
+        assertEquals(LoanStatus.RETURNED, returnedLoan.getStatus());
+        assertNotNull(returnedLoan.getReturnDate());
+        assertEquals(LocalDateTime.now(), returnedLoan.getReturnDate());
     }
 
 }
