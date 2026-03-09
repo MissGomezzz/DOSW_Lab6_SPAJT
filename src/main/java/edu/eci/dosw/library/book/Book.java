@@ -1,4 +1,4 @@
-package edu.eci.dosw.tdd.library.book;
+package edu.eci.dosw.library.book;
 
 public class Book {
     private final String tittle;
@@ -29,3 +29,4 @@ public class Book {
         return isbn.equals(((Book) obj).isbn);
     }
 }
+

@@ -1,12 +1,13 @@
 package edu.eci.dosw.library;
 
-import edu.eci.dosw.tdd.library.book.Book;
-import edu.eci.dosw.tdd.library.loan.Loan;
-import edu.eci.dosw.tdd.library.user.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import edu.eci.dosw.library.book.Book;
+import edu.eci.dosw.library.loan.Loan;
+import edu.eci.dosw.library.user.User;
 
 /**
  * Library responsible for manage the loans and the users.
@@ -85,7 +86,7 @@ public class Library {
         return users.add(user);
     }
 
-    public int getAvailableBoooks(Book book) {
+    public int getAvailableBooks(Book book) {
         return books.getOrDefault(book,0);
     }
 }

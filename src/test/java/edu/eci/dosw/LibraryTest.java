@@ -1,6 +1,9 @@
-package test.java.edu.eci.dosw;
+package edu.eci.dosw;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import edu.eci.dosw.library.Library;
 import edu.eci.dosw.library.loan.Loan;
@@ -38,8 +41,14 @@ public class LibraryTest {
         library.loanABook("1", "1234567890");
     }
 
-    // ShouldPassWhenDoesntExist() is left
-
+    @Test
+    void ShouldPassWhenDoesntExit(){ 
+        Book newBook = new Book("1984", "George Orwell", "9876543210");
+        boolean result = library.addBook(newBook);
+        // The book is added correctly. 
+        assertTrue(result);
+        assertEquals(1, library.getAvailableBooks(newBook));
+    }
 
     @Test
     void addBookShouldPassAndIncreaseCountWhenBookAlreadyExists() {

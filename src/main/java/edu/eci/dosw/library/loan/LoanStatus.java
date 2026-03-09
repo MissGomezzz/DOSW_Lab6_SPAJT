@@ -1,4 +1,4 @@
-package edu.eci.dosw.tdd.library.loan;
+package edu.eci.dosw.library.loan;
 
 public enum LoanStatus {
     ACTIVE, RETURNED

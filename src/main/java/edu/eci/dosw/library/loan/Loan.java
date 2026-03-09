@@ -1,8 +1,9 @@
 package edu.eci.dosw.library.loan;
 
-import edu.eci.dosw.tdd.library.book.Book;
-import edu.eci.dosw.tdd.library.user.User;
 import java.time.LocalDateTime;
+
+import edu.eci.dosw.library.book.Book;
+import edu.eci.dosw.library.user.User;
 
 public class Loan {
     private Book book;
