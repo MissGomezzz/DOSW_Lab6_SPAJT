@@ -84,4 +84,9 @@ public class Library {
     public boolean addUser(User user) {
         return users.add(user);
     }
+
+    public int getAvailableBoooks(Book book) {
+        return books.getOrDefault(book,0);
+    }
 }
+
