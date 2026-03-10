@@ -1,16 +1,18 @@
-package test.java.edu.eci.dosw;
+package edu.eci.dosw;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.time.LocalDateTime;
 
 import edu.eci.dosw.library.Library;
 import edu.eci.dosw.library.book.Book;
 import edu.eci.dosw.library.loan.Loan;
 import edu.eci.dosw.library.loan.LoanStatus;
+import edu.eci.dosw.library.user.User;
 
 public class LibraryTest {
     
@@ -77,12 +79,18 @@ public class LibraryTest {
     }
 
     @Test
+    void returnLoanShouldIncreaseAvailableBooks() {
+        library.returnLoan(loan);
+        // If a book is returned, the book will be available to the public. 
+        assertEquals(1, library.getAvailableBooks(book_2));
+    }
+
+    @Test
     void returnLoanShouldPassCurrentDateCorrectStatusAndExistence() {
-        Loan returnedLoan = library.returnLoan("1", "0987654321");
-        
-        assertNotNull(returnedLoan);
-        assertEquals(LoanStatus.RETURNED, returnedLoan.getStatus());
-        assertNotNull(returnedLoan.getReturnDate());
-        assertEquals(LocalDateTime.now(), returnedLoan.getReturnDate());
+        library.returnLoan(loan);
+        assertNotNull(loan);
+        assertEquals(LoanStatus.RETURNED, loan.getStatus());
+        assertNotNull(loan.getReturnDate());
+        assertEquals(LocalDateTime.now(), loan.getReturnDate());
     }
 }
