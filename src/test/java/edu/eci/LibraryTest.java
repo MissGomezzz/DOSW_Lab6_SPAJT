@@ -46,6 +46,9 @@ public class LibraryTest {
 	void loanABookShouldReturnNullIfUserDoesNotExist() {
 		Loan loan = library.loanABook("999", "1234567890");
 		AssertEquals(null, loan);
+	}
+	
+	@Test	
 	void ShouldPassWhenDoesntExit(){ 
 		Book newBook = new Book("1984", "George Orwell", "9876543210");
 		boolean result = library.addBook(newBook);
@@ -58,6 +61,9 @@ public class LibraryTest {
 	void loanABookShouldReturnNullIfBookDoesNotExist() {
     	Loan loan = library.loanABook("1", "0000000000");
     	assertEquals(null, loan);
+	}
+
+	@Test	
 	void addBookShouldPassAndIncreaseCountWhenBookAlreadyExists() {
 		Book bookToAdd = new Book("Divine Comedy","Dante Alighieri", "1234567890");
 		boolean result = library.addBook(bookToAdd);
@@ -71,6 +77,9 @@ public class LibraryTest {
 		Loan secondLoan = library.loanABook("1", "0987654321");
 		assertNotNull(firstLoan);
 		assertEquals(null, secondLoan);
+	}
+
+	@Test
 	void loanABookShouldCreateAnActiveLoanWhenUserAndBookAreValid() {
 		/* the book is available */
 		assertEquals(1, library.getAvailableBooks(book_2));
@@ -86,6 +95,9 @@ public class LibraryTest {
     	Loan fakeLoan = new Loan();
     	Loan result = library.returnLoan(fakeLoan);
     	assertEquals(null, result);
+	}
+
+	@Test
 	void loanABookShouldDecreaseAvailableBooks() {
 		library.loanABook("1", "0987654321");
 		/* If a book is loaned, that book will not be available for the public temporarily. */
@@ -97,6 +109,9 @@ public class LibraryTest {
 		Book nonExistingBook = new Book("Unknown", "Nobody", "111111");
 		int available = library.getAvailableBooks(nonExistingBook);
 		assertEquals(0, available);
+	}
+
+	@Test
 	void returnLoanShouldIncreaseAvailableBooks() {
 		library.returnLoan(loan);
 		/* If a book is returned, the book will be available to the public. */
@@ -107,6 +122,9 @@ public class LibraryTest {
 	void loanABookShouldSetLoanDate() {
 		Loan loan = library.loanABook("1", "0987654321");
 		assertNotNull(loan.getLoanDate());
+	}
+
+	@Test
 	void returnLoanShouldPassCurrentDateCorrectStatusAndExistence() {
 		library.returnLoan(loan);
 		assertNotNull(loan);
