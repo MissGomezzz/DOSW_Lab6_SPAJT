@@ -1,27 +1,25 @@
 package test.java.edu.eci.dosw;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.time.LocalDateTime;
 
 import edu.eci.dosw.library.Library;
+import edu.eci.dosw.library.book.Book;
 import edu.eci.dosw.library.loan.Loan;
-import edu.eci.dosw.library.user.User;
-import edu.eci.dosw.tdd.library.book.Book;
-import edu.eci.dosw.tdd.library.loan.LoanStatus;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import edu.eci.dosw.library.loan.LoanStatus;
 
 public class LibraryTest {
     
     private Library library;
     private User user;
     private Book book_1;
+    private Book book_2;
+    private Book book_3;
+    private Loan loan; 
     
     // Since we are going to test several methods, we can create some shared objects
     // here to avoid repeating code in every test.
@@ -32,7 +30,8 @@ public class LibraryTest {
         user.setId("1");
         user.setName("Esteban Garzón");
         book_1 = new Book("Divine Comedy","Dante Alighieri", "1234567890");
-        Book book_2 = new Book("The Odyssey","Homer", "0987654321");
+        book_2 = new Book("The Odyssey","Homer", "0987654321");
+        book_3 = new Book("50 sombras ...", "Samuel Castelblanco", "78564867");
         loan = new Loan();
 
         // There are already two books, one user and one loan in the library
@@ -62,15 +61,22 @@ public class LibraryTest {
     @Test
     void loanABookShouldCreateAnActiveLoanWhenUserAndBookAreValid() {
         // the book is available
-        assertEquals(1, library.getAvailableBook(book_2));
-        Loan loan = library.loanABook("1", "0987654321");
+        assertEquals(1, library.getAvailableBooks(book_2));
+        loan = library.loanABook("1", "0987654321");
         assertNotNull(loan);
         // User is valid
         assertEquals(user, loan.getUser());
         assertEquals(LoanStatus.ACTIVE, loan.getStatus());
     }
 
-     @Test
+    @Test
+    void loanABookShouldDecreaseAvailableBooks() {
+        library.loanABook("1", "0987654321");
+        // If a book is loaned, that book will not be available for the public temporarily. 
+        assertEquals(0, library.getAvailableBooks(book_2));
+    }
+
+    @Test
     void returnLoanShouldPassCurrentDateCorrectStatusAndExistence() {
         Loan returnedLoan = library.returnLoan("1", "0987654321");
         
@@ -79,5 +85,4 @@ public class LibraryTest {
         assertNotNull(returnedLoan.getReturnDate());
         assertEquals(LocalDateTime.now(), returnedLoan.getReturnDate());
     }
-
 }
