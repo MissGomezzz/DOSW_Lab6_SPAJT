@@ -27,4 +27,17 @@ public class LibraryTest {
     	Loan result = library.returnLoan(fakeLoan);
     	assertEquals(null, result);
 	}
+
+	@Test
+	void getAvailableBooksShouldReturnZeroIfBookNotInLibrary() {
+		Book nonExistingBook = new Book("Unknown", "Nobody", "111111");
+		int available = library.getAvailableBooks(nonExistingBook);
+		assertEquals(0, available);
+	}
+
+	@Test
+	void loanABookShouldSetLoanDate() {
+		Loan loan = library.loanABook("1", "0987654321");
+		assertNotNull(loan.getLoanDate());
+	}
 }
