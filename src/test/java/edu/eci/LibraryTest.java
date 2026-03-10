@@ -1,6 +1,5 @@
-package edu.eci.dosw;
-
-public class LibraryTest {    
+package edu.eci;
+  
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,8 +43,8 @@ public class LibraryTest {
 
 	@Test
 	void loanABookShouldReturnNullIfUserDoesNotExist() {
-		Loan loan = library.loanABook("999", "1234567890");
-		AssertEquals(null, loan);
+		loan = library.loanABook("999", "1234567890");
+		assertEquals(null, loan);
 	}
 	
 	@Test	
@@ -59,7 +58,7 @@ public class LibraryTest {
 
 	@Test
 	void loanABookShouldReturnNullIfBookDoesNotExist() {
-    	Loan loan = library.loanABook("1", "0000000000");
+    	loan = library.loanABook("1", "0000000000");
     	assertEquals(null, loan);
 	}
 
@@ -120,7 +119,7 @@ public class LibraryTest {
 
 	@Test
 	void loanABookShouldSetLoanDate() {
-		Loan loan = library.loanABook("1", "0987654321");
+		loan = library.loanABook("1", "0987654321");
 		assertNotNull(loan.getLoanDate());
 	}
 
