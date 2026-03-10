@@ -20,4 +20,11 @@ public class LibraryTest {
 		assertNotNull(firstLoan);
 		assertEquals(null, secondLoan);
 	}
+
+	@Test
+	void returnLoanShouldReturnNullIfLoanDoesNotExist() {
+    	Loan fakeLoan = new Loan();
+    	Loan result = library.returnLoan(fakeLoan);
+    	assertEquals(null, result);
+	}
 }
