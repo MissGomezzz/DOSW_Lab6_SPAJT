@@ -17,3 +17,9 @@
 - Una vez ya implementados los metodos. Podemos evidenciar que los tests ya pasan
 
 ![alt text](image-1.png)
+
+### 5: Cobertura
+
+- Una vez que se agregue Jacoco como librería y se ejecuten los test, se puede ver que la cobertura que tenemos es de un 87%.
+
+![alt text](image-2.png)
