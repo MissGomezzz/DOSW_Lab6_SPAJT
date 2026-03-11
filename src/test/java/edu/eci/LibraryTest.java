@@ -33,12 +33,10 @@ public class LibraryTest {
 		book_1 = new Book("Divine Comedy","Dante Alighieri", "1234567890");
 		book_2 = new Book("The Odyssey","Homer", "0987654321");
 		book_3 = new Book("50 sombras ...", "Samuel Castelblanco", "78564867");
-		loan = new Loan();
-		/* There are already two books, one user and one loan in the library */
+		/* There are already two books and one user in the library */
 		library.addBook(book_1);
 		library.addBook(book_2);
 		library.addUser(user);
-		library.loanABook("1", "1234567890");
 	}
 
 	@Test
@@ -112,9 +110,10 @@ public class LibraryTest {
 
 	@Test
 	void returnLoanShouldIncreaseAvailableBooks() {
-		library.returnLoan(loan);
-		/* If a book is returned, the book will be available to the public. */
-		assertEquals(1, library.getAvailableBooks(book_2));
+		/* Loan book_1, then return it — its count should go back to 1 */
+		Loan activeLoan = library.loanABook("1", "1234567890");
+		library.returnLoan(activeLoan);
+		assertEquals(1, library.getAvailableBooks(book_1));
 	}
 
 	@Test
@@ -125,11 +124,16 @@ public class LibraryTest {
 
 	@Test
 	void returnLoanShouldPassCurrentDateCorrectStatusAndExistence() {
-		library.returnLoan(loan);
-		assertNotNull(loan);
-		assertEquals(LoanStatus.RETURNED, loan.getStatus());
-		assertNotNull(loan.getReturnDate());
-		assertEquals(LocalDateTime.now(), loan.getReturnDate());
+		Loan activeLoan = library.loanABook("1", "1234567890");
+		Loan returned = library.returnLoan(activeLoan);
+		assertNotNull(returned);
+		assertEquals(LoanStatus.RETURNED, returned.getStatus());
+		assertNotNull(returned.getReturnDate());
+		/* truncate to seconds to avoid nanosecond drift */
+		assertEquals(
+			LocalDateTime.now().withNano(0),
+			returned.getReturnDate().withNano(0)
+		);
 	}
 
 	@Test

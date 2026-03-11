@@ -28,5 +28,10 @@ public class Book {
     public boolean equals(Object obj) {
         return isbn.equals(((Book) obj).isbn);
     }
+
+    @Override
+    public int hashCode() {
+        return isbn.hashCode();
+    }
 }
 

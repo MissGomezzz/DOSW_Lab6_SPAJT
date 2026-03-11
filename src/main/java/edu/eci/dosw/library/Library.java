@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.time.LocalDateTime;
+
 import edu.eci.dosw.library.book.Book;
 import edu.eci.dosw.library.loan.Loan;
+import edu.eci.dosw.library.loan.LoanStatus;
 import edu.eci.dosw.library.user.User;
 
 /**
@@ -37,8 +40,15 @@ public class Library {
      * @return true if the book was stored false otherwise.
      */
     public boolean addBook(Book book) {
-        // TODO Implement the logic to add a new book into the map.
-        return false;
+        if (book == null) {
+            return false;
+        }
+        if (books.containsKey(book)) {
+            books.put(book, books.get(book) + 1);
+        } else {
+            books.put(book, 1);
+        }
+        return true;
     }
 
     /**
@@ -60,9 +70,48 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-        // TODO Implement the login of loan a book to a user based on the UserId and the
-        // isbn.
-        return null;
+        // Find the user
+        User foundUser = users.stream()
+                .filter(u -> u.getId().equals(userId))
+                .findFirst()
+                .orElse(null);
+        if (foundUser == null) {
+            return null;
+        }
+
+        // Find the book by ISBN
+        Book foundBook = books.keySet().stream()
+                .filter(b -> b.getIsbn().equals(isbn))
+                .findFirst()
+                .orElse(null);
+        if (foundBook == null) {
+            return null;
+        }
+
+        // Check availability
+        if (books.get(foundBook) <= 0) {
+            return null;
+        }
+
+        // Check that the user does not already have an ACTIVE loan for the same book
+        boolean hasActiveLoan = loans.stream().anyMatch(l ->
+                l.getUser().getId().equals(userId)
+                && l.getBook().getIsbn().equals(isbn)
+                && l.getStatus() == LoanStatus.ACTIVE);
+        if (hasActiveLoan) {
+            return null;
+        }
+
+        // Decrease book count and create the loan
+        books.put(foundBook, books.get(foundBook) - 1);
+
+        Loan newLoan = new Loan();
+        newLoan.setBook(foundBook);
+        newLoan.setUser(foundUser);
+        newLoan.setLoanDate(LocalDateTime.now());
+        newLoan.setStatus(LoanStatus.ACTIVE);
+        loans.add(newLoan);
+        return newLoan;
     }
 
     /**
@@ -77,9 +126,13 @@ public class Library {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-        // TODO Implement the login of loan a book to a user based on the UserId and the
-        // isbn.
-        return null;
+        if (!loans.contains(loan)) {
+            return null;
+        }
+        loan.setStatus(LoanStatus.RETURNED);
+        loan.setReturnDate(LocalDateTime.now());
+        books.put(loan.getBook(), books.get(loan.getBook()) + 1);
+        return loan;
     }
 
     public boolean addUser(User user) {
