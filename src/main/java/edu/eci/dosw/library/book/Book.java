@@ -1,4 +1,4 @@
-package edu.eci.dosw.tdd.library.book;
+package edu.eci.dosw.library.book;
 
 public class Book {
     private final String tittle;
@@ -28,4 +28,10 @@ public class Book {
     public boolean equals(Object obj) {
         return isbn.equals(((Book) obj).isbn);
     }
+
+    @Override
+    public int hashCode() {
+        return isbn.hashCode();
+    }
 }
+

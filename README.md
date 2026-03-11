@@ -6,4 +6,14 @@
 - Paula Lozano Castaneda
 - Juan Diego Patino Munoz
 
-jeje
+### Punto 4.2
+
+- Se evidencia que, al ejecutar los tests, estos fallan, ya que no se han implementado los metodos.
+
+![alt text](image.png)
+
+### Punto 4.3
+
+- Una vez ya implementados los metodos. Podemos evidenciar que los tests ya pasan
+
+![alt text](image-1.png)
