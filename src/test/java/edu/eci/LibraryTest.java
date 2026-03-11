@@ -159,4 +159,32 @@ public class LibraryTest {
 		assertNotNull(returnedLoan);
 		assertEquals(LoanStatus.RETURNED, returnedLoan.getStatus());
 	}
+
+@Test
+	void addBookShouldHandleEmptyAuthorOrTitle() {
+		Book strangeBook = new Book("", "", "1122334455");
+		boolean result = library.addBook(strangeBook);
+		assertTrue(result);
+		assertEquals(1, library.getAvailableBooks(strangeBook));
+	}
+
+	@Test
+	void loanABookShouldReturnNullIfAnotherUserHasTheOnlyCopy() {
+		User user2 = new User();
+		user2.setId("2");
+		user2.setName("Juan Pérez");
+		library.addUser(user2);
+		library.loanABook("1", "0987654321");
+		Loan failedLoan = library.loanABook("2", "0987654321");
+		assertEquals(null, failedLoan);
+	}
+
+	@Test
+	void returnLoanShouldKeepSameUserAndBook() {
+		Loan activeLoan = library.loanABook("1", "1234567890");
+		Loan returnedLoan = library.returnLoan(activeLoan);
+		assertEquals(user, returnedLoan.getUser());
+		assertEquals(book_1, returnedLoan.getBook());
+	}
+
 }
