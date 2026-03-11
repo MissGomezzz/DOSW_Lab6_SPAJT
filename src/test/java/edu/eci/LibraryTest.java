@@ -131,4 +131,28 @@ public class LibraryTest {
 		assertNotNull(loan.getReturnDate());
 		assertEquals(LocalDateTime.now(), loan.getReturnDate());
 	}
+
+	@Test
+	void addBookShouldStoreNewBookWithCountOfOne() {
+		boolean result = library.addBook(book_3);
+		assertTrue(result);
+		assertEquals(1, library.getAvailableBooks(book_3));
+	}
+
+	@Test
+	void loanABookShouldReturnActiveLoanWithCorrectBook() {
+		Loan activeLoan = library.loanABook("1", "0987654321");
+		assertNotNull(activeLoan);
+		assertEquals(LoanStatus.ACTIVE, activeLoan.getStatus());
+		assertEquals(book_2, activeLoan.getBook());
+	}
+
+	@Test
+	void returnLoanShouldChangeStatusToReturned() {
+		Loan activeLoan = library.loanABook("1", "0987654321");
+		assertNotNull(activeLoan);
+		Loan returnedLoan = library.returnLoan(activeLoan);
+		assertNotNull(returnedLoan);
+		assertEquals(LoanStatus.RETURNED, returnedLoan.getStatus());
+	}
 }
