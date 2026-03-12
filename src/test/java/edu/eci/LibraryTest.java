@@ -1,7 +1,9 @@
 package edu.eci;
-  
+import edu.eci.dosw.App;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow; 
 import java.time.LocalDateTime;
-
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -160,7 +162,7 @@ public class LibraryTest {
 		assertEquals(LoanStatus.RETURNED, returnedLoan.getStatus());
 	}
 
-@Test
+	@Test
 	void addBookShouldHandleEmptyAuthorOrTitle() {
 		Book strangeBook = new Book("", "", "1122334455");
 		boolean result = library.addBook(strangeBook);
@@ -186,5 +188,57 @@ public class LibraryTest {
 		assertEquals(user, returnedLoan.getUser());
 		assertEquals(book_1, returnedLoan.getBook());
 	}
+
+
+	@Test
+	void appMainShouldRunWithoutErrors() {
+		assertDoesNotThrow(() -> App.main(new String[]{}));
+	}
+
+
+	@Test
+	void booksWithDifferentIsbnShouldNotBeEqual() {
+		Book bookA = new Book("Clean Code", "Robert C. Martin", "111222333");
+		Book bookB = new Book("Clean Code", "Robert C. Martin", "999888777");
+		assertEquals(false, bookA.equals(bookB));
+	}
+
+	@Test
+	void bookShouldNotBeEqualToNull() {
+		Book book = new Book("Clean Code", "Robert C. Martin", "111222333");
+		assertEquals(false, book.equals(null));
+	}
+
+	@Test
+	void bookShouldNotBeEqualToDifferentObjectType() {
+		Book book = new Book("Clean Code", "Robert C. Martin", "111222333");
+		assertEquals(false, book.equals("not a book"));
+	}
+
+
+	@Test
+	void bookShouldStoreTittleAuthorAndIsbnCorrectly() {
+		Book book = new Book("Clean Code", "Robert C. Martin", "111222333");
+		assertEquals("Clean Code", book.getTittle());
+		assertEquals("Robert C. Martin", book.getAuthor());
+		assertEquals("111222333", book.getIsbn());
+	}
+
+
+	@Test
+	void appMainShouldPrintHelloWorld() {
+    PrintStream originalOut = System.out;
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(out));
+
+    try {
+        App.main(new String[]{});
+        String printed = out.toString().toLowerCase();
+        assertTrue(printed.contains("hello"));
+    } finally {
+        System.setOut(originalOut);
+    }
+	}
+
 
 }

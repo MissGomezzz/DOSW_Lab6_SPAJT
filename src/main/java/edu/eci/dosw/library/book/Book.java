@@ -8,7 +8,6 @@ public class Book {
     public Book(String tittle, String author, String isbn) {
         this.tittle = tittle;
         this.author = author;
-
         this.isbn = isbn;
     }
 
@@ -26,7 +25,14 @@ public class Book {
 
     @Override
     public boolean equals(Object obj) {
-        return isbn.equals(((Book) obj).isbn);
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Book other = (Book) obj;
+        return isbn.equals(other.isbn);
     }
 
     @Override
@@ -34,4 +40,3 @@ public class Book {
         return isbn.hashCode();
     }
 }
-
