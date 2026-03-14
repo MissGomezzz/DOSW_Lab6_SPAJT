@@ -1,4 +1,5 @@
 package edu.eci;
+
 import edu.eci.dosw.App;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow; 
 import java.time.LocalDateTime;
@@ -239,6 +240,4 @@ public class LibraryTest {
         System.setOut(originalOut);
     }
 	}
-
-
 }

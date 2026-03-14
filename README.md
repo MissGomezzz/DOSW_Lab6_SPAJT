@@ -46,3 +46,11 @@
 ![alt text](images/Docker.png)
 
 - Análisis de SonarQube: Coverage es el porcentage de código cubierto por pruebas. Security es el nivel de seguridad del código. Reliability es la confiabilidad del sistema. Maintainability es la facilidad del mantenimiento del código y Duplications es el porcentage de código duplicado, podemos ver que nos lanza "Quality Gate Passed" y tenemos una cobertura reportada por SonarQube del 87.9%. 
+
+### Parte 2
+
+> ![IMPORTANT]
+> Para la parte dos hicimos unit tests para solo algunas clases, lo tomamos como si fuera un ciclo de DOPO, en el cual primero hacemos una parte para ver como nos va ya que el proyecto siempre
+> puede estar sujeto a cambios, por ende, si hacemos todos los tests para el lab es muy posible que no todo lo podamos usarn en el proyecto
+
+![alt text](images/last.png)
