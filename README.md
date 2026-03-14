@@ -49,7 +49,8 @@
 
 ### Parte 2
 
-> ![IMPORTANT]
+> [!IMPORTANT]
+>
 > Para la parte dos hicimos unit tests para solo algunas clases, lo tomamos como si fuera un ciclo de DOPO, en el cual primero hacemos una parte para ver como nos va ya que el proyecto siempre
 > puede estar sujeto a cambios, por ende, si hacemos todos los tests para el lab es muy posible que no todo lo podamos usarn en el proyecto
 
